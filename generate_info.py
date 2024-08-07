@@ -1,7 +1,7 @@
 import os
 from subprocess import check_output, CalledProcessError
 
-OUTPUT_FILE = "chatgpt.txt"
+OUTPUT_FILE = "generated_info.txt"
 
 def generate_tree(startpath, exclude_dirs):
     exclude_paths = [os.path.join(startpath, d) for d in exclude_dirs]

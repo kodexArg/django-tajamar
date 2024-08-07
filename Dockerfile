@@ -20,6 +20,4 @@ RUN mkdir -p /nginx/daphne
 
 WORKDIR /app/project
 
-# RUN python manage.py collectstatic --noinput
-
-CMD ["bash", "-c", "rm -f /app/nginx/daphne/daphne.sock && daphne -u /app/nginx/daphne/daphne.sock project.asgi:application"]
+CMD ["bash", "-c", "rm -f /app/nginx/daphne/daphne.sock && watchmedo auto-restart --directory=./ --pattern=*.py --pattern=*.html --recursive -- daphne -u /app/nginx/daphne/daphne.sock project.asgi:application"]
