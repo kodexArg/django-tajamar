@@ -1,0 +1,31 @@
+<!-- project/templates/base/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="{% static 'libs/bulma/bulma.min.css' %}">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Hello World</h1>
+            <div x-data="{ message: 'Hello from Alpine.js!', show: true }">
+                <button class="button is-info" @click="show = !show">Toggle Message</button>
+                <p x-show="show" x-text="message" class="mt-2"></p>
+            </div>
+            <hr>
+            <div>
+                <h2 class="title is-4">HTMX Example</h2>
+                <button class="button is-primary" hx-get="/some-endpoint" hx-target="#response" hx-swap="outerHTML">Load Content</button>
+                <div id="response" class="mt-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'libs/htmx/htmx.min.js' %}"></script>
+    <script src="{% static 'libs/alpine.js/cdn.min.js' %}"></script>
+</body>
+</html>

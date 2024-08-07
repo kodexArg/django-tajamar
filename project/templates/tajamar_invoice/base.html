@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tajamar Invoice{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'libs/bulma/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+
+    <script src="{% static 'libs/htmx/htmx.min.js' %}"></script>
+    <script src="{% static 'libs/alpine.js/cdn.min.js' %}"></script>
+</body>
+</html>

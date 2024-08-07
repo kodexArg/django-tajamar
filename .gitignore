@@ -1,0 +1,50 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+nginx/daphne/daphne.sock       # Archivo socket de Daphne
+nginx/daphne/daphne.sock.lock   # Lock del socket de Daphne
+
+# Backup files
+*.bak
+
+# Python
+*.py[cod]
+*.class
+
+# Virtual Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Docker
+data/db/
+docker-compose.override.yml  # Puede haber un archivo de sobreescritura
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# SSL Certificates
+certs/
+
+# Otros
+*.egg-info/
+*.egg
+dist/
+build/
+
+xtras/
+chatgpt.txt

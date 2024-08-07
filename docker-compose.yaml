@@ -1,0 +1,50 @@
+services:
+  db:
+    image: mariadb:10.6
+    container_name: db
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - ./data/db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    expose:
+      - "3306"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django
+    volumes:
+      - ./project:/app/project
+      - ./project/static:/app/static
+      - ./project/media:/app/media
+      - ./nginx/daphne:/app/nginx/daphne
+    working_dir: /app/project
+    depends_on:
+      - db
+    env_file:
+      - .env
+    expose:
+      - "8001"
+
+  nginx:
+    image: nginx:1.26.1
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./project/static:/static
+      - ./project/media:/media
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/daphne:/app/nginx/daphne
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
