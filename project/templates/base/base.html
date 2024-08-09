@@ -17,5 +17,14 @@
 
     <script src="{% static 'libs/htmx/htmx.min.js' %}"></script>
     <script src="{% static 'libs/alpine.js/cdn.min.js' %}"></script>
+    <!-- Live Server | not for production -->
+    <script>
+        const ws = new WebSocket('ws://localhost:6789');
+        ws.onmessage = function(event) {
+            if (event.data === 'reload') {
+                location.reload();
+            }
+        };
+    </script>
 </body>
 </html>

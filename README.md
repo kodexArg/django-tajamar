@@ -39,9 +39,55 @@ AWS_STORAGE_BUCKET_NAME=your-aws-s3-bucket-name
 AWS_S3_REGION_NAME=your-aws-region-name
 ```
 
+
 ## Instructions for Setup
 - Clone the repository.
 - Create a .env file in the root directory with the necessary environment variables.
 - run ./init.sh
    _take a look into this file to understand what is done: virtual environment, requirements, nginx selfisgned certs and more_
 - Build and run the Docker containers using docker-compose up --build.
+
+
+## How observer.py Works in Development
+### Overview
+observer.py is a script designed specifically for the development environment. Its purpose is to automatically refresh the browser whenever changes are made to the project files. This ensures that you can see the most recent changes immediately without having to reload the page manually.
+
+In order for observer.py to work properly, you need to include a small JavaScript snippet in your base.html template. This script establishes a WebSocket connection with observer.py and listens for reload messages.
+
+```
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tajamar Invoice{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'libs/bulma/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+
+    <script src="{% static 'libs/htmx/htmx.min.js' %}"></script>
+    <script src="{% static 'libs/alpine.js/cdn.min.js' %}"></script>
+    <!-- Live Server | not for production -->
+    <script>
+        const ws = new WebSocket('ws://localhost:6789');
+        ws.onmessage = function(event) {
+            if (event.data === 'reload') {
+                location.reload();
+            }
+        };
+    </script>
+</body>
+</html>
+```
+
+### Important Notes
+- Development Only: observer.py is intended for use in a development environment only. It should never be used in production.
+- WebSocket Configuration: The WebSocket connection is established with ws://localhost:6789, which assumes you are running observer.py locally.
+- Automatic Reload: The browser will automatically reload whenever a change is detected in the file and the reload message is received.

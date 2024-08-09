@@ -4,8 +4,8 @@
 *.pyc
 __pycache__/
 db.sqlite3
-nginx/daphne/daphne.sock       # Archivo socket de Daphne
-nginx/daphne/daphne.sock.lock   # Lock del socket de Daphne
+daphne.sock       # Archivo socket de Daphne
+daphne.sock.lock   # Lock del socket de Daphne
 
 # Backup files
 *.bak
