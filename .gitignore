@@ -45,6 +45,3 @@ certs/
 *.egg
 dist/
 build/
-
-xtras/
-chatgpt.txt
