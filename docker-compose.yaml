@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASS}
     volumes:
       - ./data/db:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./xtras/init.sql:/docker-entrypoint-initdb.d/init.sql
     expose:
       - "3306"
 
